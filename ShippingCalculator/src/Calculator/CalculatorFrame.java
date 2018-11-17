@@ -1,5 +1,3 @@
-//add submit button
-
 package Calculator;
 import javax.swing.*;
 
@@ -112,7 +110,7 @@ public class CalculatorFrame extends JFrame
 					JOptionPane.showMessageDialog(null, "You have entered a non-numerical value\nPlease try again");
 				}
 			}
-			else
+			else if(standardButton.isSelected())
 			{
 				//try catch for non-numerical user input
 				try
@@ -128,16 +126,22 @@ public class CalculatorFrame extends JFrame
 				}
 				catch(NumberFormatException e1)
 				{
-					JOptionPane.showMessageDialog(null, "You have entered a non-numerical value\nPlease try again");
+					JOptionPane.showMessageDialog(null, "You have entered a non-numerical value\nPlease try again", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
+			}
+			else
+			{
+				//no option selected error message
+				JOptionPane.showMessageDialog(null, "No option selected", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
-	
+
 	public static void main(String[] args)
 	{
 		//shift main to a different file later
-		new CalculatorFrame();
+		CalculatorFrame shipping = new CalculatorFrame();
 		System.out.println("Executed");	
+		
 	}
 }
