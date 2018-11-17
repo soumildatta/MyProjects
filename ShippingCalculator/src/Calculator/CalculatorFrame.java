@@ -12,6 +12,7 @@ import java.awt.event.*;
 
 public class CalculatorFrame extends JFrame
 {
+	//window size
 	private final int WINDOW_WIDTH = 350;
 	private final int WINDOW_HEIGHT = 200;
 	
@@ -21,6 +22,7 @@ public class CalculatorFrame extends JFrame
 	private JRadioButton flatButton;
 	private JRadioButton standardButton;
 	private JRadioButton expressButton;
+	private JButton calcButton;
 	private ButtonGroup group;
 	
 	public CalculatorFrame()
@@ -29,24 +31,27 @@ public class CalculatorFrame extends JFrame
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
 		buildPanel();
 		add(panel);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
 	private void buildPanel()
 	{
+		//weight input here
 		messageLabel = new JLabel("Enter the weight of the item (lbs) ");
 		weightTextField = new JTextField(10);
 		
-		flatButton = new JRadioButton("Flat rate: 6-8 business days");
-		flatButton.addActionListener(new RadioButtonListener());
-		
-		standardButton = new JRadioButton("Standard shipping: 3-5 days");
-		standardButton.addActionListener(new RadioButtonListener());
-		
+		//radio buttons for three shipping options
+		flatButton = new JRadioButton("Flat rate: 6-8 business days");		
+		standardButton = new JRadioButton("Standard shipping: 3-5 days");		
 		expressButton = new JRadioButton("Express shipping: 1-2 days");
-		expressButton.addActionListener(new RadioButtonListener());
+		
+		//calculate button
+		calcButton = new JButton("Calculate Shipping Cost");
+		calcButton.addActionListener(new CalcButtonListener());
 		
 		group = new ButtonGroup();
 		group.add(flatButton);
@@ -59,18 +64,19 @@ public class CalculatorFrame extends JFrame
 		panel.add(flatButton);
 		panel.add(standardButton);
 		panel.add(expressButton);
+		panel.add(calcButton);
 	}
 	
-	private class RadioButtonListener implements ActionListener
+	private class CalcButtonListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			//retrieve text from text box
 			String input = weightTextField.getText();
-			
-			///
+
 			if(flatButton.isSelected())
 			{
-				//add try catch for numberformatexception
+				//try catch for non-numerical user input
 				try
 				{
 					double weight = Double.parseDouble(input);
@@ -89,29 +95,41 @@ public class CalculatorFrame extends JFrame
 			}
 			else if(standardButton.isSelected())
 			{
-				//add try catch for numberformatexception
-
-				double weight = Double.parseDouble(input);
-				
-				ShippingCost shipping = new StandardShipping();
-				double cost = shipping.getShippingCost(weight);
-				String type = shipping.getLabel();
-				
-				JOptionPane.showMessageDialog(null, String.format("Shipping format:    %s"
-						+ "\nShipping cost:        $%.2f", type, cost));
+				//try catch for non-numerical user input
+				try
+				{
+					double weight = Double.parseDouble(input);
+					
+					ShippingCost shipping = new StandardShipping();
+					double cost = shipping.getShippingCost(weight);
+					String type = shipping.getLabel();
+					
+					JOptionPane.showMessageDialog(null, String.format("Shipping format:    %s"
+							+ "\nShipping cost:        $%.2f", type, cost));
+				}
+				catch(NumberFormatException e1)
+				{
+					JOptionPane.showMessageDialog(null, "You have entered a non-numerical value\nPlease try again");
+				}
 			}
 			else
 			{
-				//add try catch for numberformatexception
-				
-				double weight = Double.parseDouble(input);
-				
-				ShippingCost shipping = new StandardShipping();
-				double cost = shipping.getShippingCost(weight);
-				String type = shipping.getLabel();
-				
-				JOptionPane.showMessageDialog(null, String.format("Shipping format:    %s"
-						+ "\nShipping cost:        $%.2f", type, cost));
+				//try catch for non-numerical user input
+				try
+				{
+					double weight = Double.parseDouble(input);
+					
+					ShippingCost shipping = new StandardShipping();
+					double cost = shipping.getShippingCost(weight);
+					String type = shipping.getLabel();
+					
+					JOptionPane.showMessageDialog(null, String.format("Shipping format:    %s"
+							+ "\nShipping cost:        $%.2f", type, cost));
+				}
+				catch(NumberFormatException e1)
+				{
+					JOptionPane.showMessageDialog(null, "You have entered a non-numerical value\nPlease try again");
+				}
 			}
 		}
 	}
@@ -123,4 +141,3 @@ public class CalculatorFrame extends JFrame
 		System.out.println("Executed");	
 	}
 }
-
