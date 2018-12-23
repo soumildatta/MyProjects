@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Login App</string>
+    <string name="title_activity_logged_one">LoggedActivityOne</string>
+</resources>
