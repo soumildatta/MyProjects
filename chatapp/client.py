@@ -5,8 +5,6 @@ import regex as re
 
 s = socket.socket()
 host = input("Enter the host server name: ")
-#make another input for port
-#port = 8080
 
 try:
 	port = int(input("Enter a port number: "))
@@ -20,11 +18,7 @@ finally:
 print("")
 
 name = input("Enter your chat username: ")
-'''
 
-if(re.search('[a-zA-Z]', port)):
-	print("Wrong")
-'''
 try:
 	s.connect((host, port))
 except Exception:
