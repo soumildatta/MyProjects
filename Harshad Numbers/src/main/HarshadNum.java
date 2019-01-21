@@ -65,7 +65,7 @@ public class HarshadNum {
 			else
 			{
 				loop = -1;
-				System.out.println("Thank you for using the Harshad Number Calculator!");
+				System.out.println("\nThank you for using the Harshad Number Calculator!");
 			}
 		}
 	}
@@ -151,6 +151,20 @@ public class HarshadNum {
 		 * numbers 
 		 * here
 		 */
+		System.out.println(" \nA Harshad number is a positive integer which is "
+				+ "\ndivisible by the sum of its digits, also called a Niven number "
+				+ "\n(Kennedy et al. 1980) or a multidigital number (Kaprekar 1955). "
+				+ "\nThe first few are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 18, 20, 21, 24, ... "
+				+ "\n(OEIS A005349). Grundman (1994) proved that there is no sequence "
+				+ "\nof more than 20 consecutive Harshad numbers, and found the smallest "
+				+ "\nsequence of 20 consecutive Harshad numbers, each member of which has "
+				+ "\n44363342786 digits.");
+		sleep(5000);
+		System.out.println("\nGrundman (1994) defined an n-Harshad (or n-Niven) number to "
+				+ "\nbe a positive integer which is divisible by the sum of its digits in "
+				+ "\nbase n>=2. Cai (1996) showed that for n=2 or 3, there exists an infinite "
+				+ "\nfamily of sequences of consecutive n-Harshad numbers of length 2n.");
+		
 	}
 	
 	public static void readFromFile(String name) throws IOException
