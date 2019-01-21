@@ -36,7 +36,7 @@ def encryption(key):
   result = ''.join(output)
   print (result)
 
-if prog == "yes":
+if prog == "yes" or "y" or "yea" or "yeah":
     print("You have chosen to start the application")
     print()
     print("Would you like to encrypt or decrypt your message? (enc/dec)")
@@ -44,7 +44,7 @@ if prog == "yes":
     
     #ENCRYPTION SEGMENT !!!
     #CODE FOR ENCRYPTION 
-    if choose == "enc":
+    if choose == "enc" or "encrypt":
         print("You have chosen to encrypt a message using Ceaser Cipher")
         print()
         key = int(input("Please enter your key for encryption: "))
@@ -53,7 +53,7 @@ if prog == "yes":
         encryption(key)
         print("Please note down or copy your encrypted message before the console clears in 10 seconds")
 
-    if choose == "dec":
+    if choose == "dec" or "decipher" or "decrypt":
         print("You have chosen to decrypt a message using Ceaser Cipher")
         key = int(input("Please enter your key for decryption: "))
         print("Please enter the message that you want to decrypt ")
@@ -65,5 +65,6 @@ if prog == "yes":
     
     print("")
     print("This application will now close to protect your privacy.")
+
 else:
     print("Thank you for using the app")
