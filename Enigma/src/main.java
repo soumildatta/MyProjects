@@ -1,25 +1,15 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class main {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		
-		/*
-		System.out.println("Enter a sentence to be encrypted");
-		String testing = scan.nextLine();
-		String format;
-		format = testing.replaceAll(" ", "").toLowerCase();
-		
-		char[] array = format.toCharArray();
-		for(int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
-		}
-		*/
 		
 	}
 	
-	public char[] wordProcessing (String input) {
-		//format string for processing
+	//Converts user input to lowercase and removes spaces
+	public static char[] wordProcessing (String input) {
 		String formatted;
 		formatted = input.replaceAll(" ", "").toLowerCase();
 		return formatted.toCharArray();
@@ -28,9 +18,13 @@ public class main {
 	public static char[] encrypt() {
 		Scanner scan = new Scanner(System.in);
 		
-		print("You have chosen to encrypt.");
+		System.out.println("You have chosen to encrypt.");
 		System.out.print("Enter a sentence to be encrypted: ");
-		String sentenceRaw = scan.nextLine();
+		String sentence_raw = scan.nextLine();
+		//format user input for encrpytion
+		char[] formatted_input;
+		formatted_input = wordProcessing(sentence_raw);
+		
 		
 		//placeholder
 		char[] character = new char[10];
@@ -40,16 +34,16 @@ public class main {
 	public static char[] decrypt () {
 		Scanner scan = new Scanner(System.in);
 		
-		print("You have chosen to decrypt.");
+		System.out.println("You have chosen to decrypt.");
 		System.out.print("Enter a sentence to be decrypted: ");
-		String sentenceRaw = scan.nextLine();
+		String sentence_raw = scan.nextLine();
+		//format user input for decryption
+		char[] formatted_input;
+		formatted_input = wordProcessing(sentence_raw);
+		
 		
 		//placeholder
 		char[] character = new char[10];
 		return character;
-	}
-	
-	public static void print(String input) {
-		System.out.println(input);
 	}
 }
