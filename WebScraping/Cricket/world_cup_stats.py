@@ -1,40 +1,48 @@
+#author: Soumil Datta
+#Description: Displays the current world cup cricket team rankings and stats
+
 from urllib.request import urlopen
 from bs4 import BeautifulSoup as soup
 from prettytable import PrettyTable
 
+#all information scraped from cricketworldcup.com
 destination_url = "https://www.cricketworldcup.com/standings"
 
+#fetch the url using urllib 
 uClient = urlopen(destination_url)
 page_html = uClient.read()
 uClient.close()
 
+#parse html using beautifulsoup
 page_soup = soup(page_html, "html.parser")
 
+#tr tags with table-body class contain each team's information
 containers = page_soup.findAll("tr", {"class":"table-body"})
 
-#print("Position\tTeam Name\t\tPlayed\tWon\tLost\tN/R\tTied\tPoints")
-
+#define column labels with pretty table
 table = PrettyTable()
 table.field_names = ["Position", "Team Name", "Played", "Won", "Lost", "N/R", "Tied", "Points"]
 
-count = 1
+#runs through every tr tag in the containers array to get team info
 for container in containers:
 	#team name and symbol
 	team_name = container.a.span.text.strip()
 	team_symbol = container.a.span.next_sibling.next_sibling.text.strip()
 
-	games_played = container.td.next_sibling.next_sibling.next_sibling.next_sibling.text
-	games_won = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
-	games_lost = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
-	games_not_played = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
-	games_tied = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
+	#td tag with the table-body__cell class contains team stats such as games won and lost 
+	game_info = container.findAll("td", {"class":"table-body__cell"})
 
-	#net_rr = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
+	#get team position, games won, games lost, games not played, games tied, and team points
+	pos_team = game_info[0].text.strip()
+	games_played = game_info[2].text.strip()
+	games_won = game_info[3].text.strip() 
+	games_lost = game_info[4].text.strip()
+	games_not_played = game_info[5].text.strip() 
+	games_tied = game_info[6].text.strip()
+	points = game_info[8].text.strip()
 
-	points = container.td.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.text
+	#add row in the table with all the team stats corresponding with their label
+	table.add_row([pos_team, team_name + " (" + team_symbol + ")", games_played, games_won, games_lost, games_not_played, games_tied, points])
 
-	#print(f"{count}\t\t{team_name} ({team_symbol})\t{games_played}")
-	table.add_row([count, team_name + " (" + team_symbol + ")", games_played, games_won, games_lost, games_not_played, games_tied, points])
-	count += 1
-
+#print the completed table
 print(table)
